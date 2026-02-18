@@ -1,8 +1,12 @@
 import axios from "axios";
 import { load } from "cheerio";
+import { getBaseUrl } from "./getBaseUrlFromDB";
 
 
-const BASE_URL = process.env.TAMILROCKERSURL;
+
+const BASE_URL = await getBaseUrl();
+
+
 
 export async function scrapeMalayalamLinks() {
   try {
