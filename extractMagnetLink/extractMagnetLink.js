@@ -10,7 +10,6 @@ export async function extractPage(movieUrl) {
   try {
     const response = await axios.get(movieUrl);
     const $ = load(response.data);
-    let total =1;
     const results = [];
 
     $("a[href^='magnet:?']").each((i, el) => {
@@ -44,9 +43,9 @@ export async function extractPage(movieUrl) {
         size: sizeMatch ? sizeMatch[0] : "Size not found",
       });
     });
-    console.log(`magnet links are saving total: ${total++}`)
-   const magnetArray = results.map(r => r.magnet);
-   await saveMagnets(magnetArray)
+    const magnetArray = results.map(r => r.magnet);
+    console.log(`magnet links are adding....`)
+    await saveMagnets(magnetArray)
 
   } catch (err) {
     console.error("Error:", err.message);
