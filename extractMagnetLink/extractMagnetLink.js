@@ -44,7 +44,11 @@ export async function extractPage(movieUrl) {
       });
     });
     const magnetArray = results.map(r => r.magnet);
-    console.log(`magnet links are adding....`)
+    
+    console.log(
+  `[${new Date().toLocaleString()}] magnet links are adding....`
+);
+
     await saveMagnets(magnetArray)
 
   } catch (err) {
