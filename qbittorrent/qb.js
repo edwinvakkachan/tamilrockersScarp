@@ -20,11 +20,14 @@ export async function loginQB() {
 }
 
 export async function addMagnet(magnet) {
+
+  const today = new Date().toISOString().split("T")[0]; 
+
   await qb.post("/api/v2/torrents/add",
     new URLSearchParams({
       urls: magnet,
       category: "2tbEnglish",
-      tags: "malayalam,script"
+      tags: `malayalam,script,${today}`
         // optional
     })
   );

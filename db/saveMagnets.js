@@ -4,11 +4,11 @@ export async function saveMagnets(magnetLinks) {
   const db = await initDB();
 
   for (const magnet of magnetLinks) {
-    await db.run(
-      `INSERT OR IGNORE INTO magnets (magnet) VALUES (?)`,
-      magnet
+    await db.query(
+      `INSERT INTO magnets (magnet)
+       VALUES ($1)
+       ON CONFLICT (magnet) DO NOTHING`,
+      [magnet]
     );
   }
-
-  await db.close();
 }
