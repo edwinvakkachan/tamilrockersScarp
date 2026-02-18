@@ -2,7 +2,7 @@ import axios from "axios";
 import { load } from "cheerio";
 
 
-const BASE_URL = process.env.URL;
+const BASE_URL = process.env.TAMILROCKERSURL;
 
 export async function scrapeMalayalamLinks() {
   try {
