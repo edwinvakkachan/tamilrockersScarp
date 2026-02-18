@@ -10,10 +10,10 @@ async function main(){
   // const url = "https://www.1tamilmv.earth/index.php?/forums/forum/36-web-hd-itunes-hd-bluray/";
   // await movieSearchInPage(url)
   console.log('process started');
-//  const links = await scrapeMalayalamLinks();
-//  for (const value of links){
-//   await extractPage(value)
-//  }
+ const links = await scrapeMalayalamLinks();
+ for (const value of links){
+  await extractPage(value)
+ }
 await addToTorrent();
 
  console.log('process completed')
