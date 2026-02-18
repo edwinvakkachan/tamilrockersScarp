@@ -1,7 +1,8 @@
 import axios from "axios";
 import { load } from "cheerio";
 
-const BASE_URL = "https://www.1tamilmv.earth/";
+
+const BASE_URL = process.env.URL;
 
 export async function scrapeMalayalamLinks() {
   try {
@@ -34,15 +35,6 @@ export async function scrapeMalayalamLinks() {
       }
       
 
-  // const yearMatch = lowerHref.match(/\b(20\d{2})\b/);
-
-  // if (yearMatch) {
-  //   const year = parseInt(yearMatch[1]);
-
-  //   if (year <= 2025) return; // ⬅ skip anything below 2025
-  // }
-
-
 
       if (
         lowerHref.includes("malayalam") ||
@@ -52,10 +44,7 @@ export async function scrapeMalayalamLinks() {
       }
     });
 
-    // console.log("Filtered Links:\n");
-    // [...links].forEach(link => console.log(link));
-    // console.log(links)
-
+  
     console.log(`\nTotal Found: ${links.size}`);
     return links;
 
