@@ -10,7 +10,7 @@ export async function extractPage(movieUrl) {
   try {
     const response = await axios.get(movieUrl);
     const $ = load(response.data);
-    let total =0;
+    let total =1;
     const results = [];
 
     $("a[href^='magnet:?']").each((i, el) => {
