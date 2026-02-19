@@ -1,6 +1,7 @@
 import axios from "axios";
 import { load } from "cheerio";
 import { saveMagnets } from "../db/saveMagnets.js";
+import { delay } from "../delay.js";
 
 
 
@@ -48,7 +49,7 @@ export async function extractPage(movieUrl) {
     console.log(
   `[${new Date().toLocaleString()}] magnet links are adding....`
 );
-
+    await delay(1000,true);
     await saveMagnets(magnetArray)
 
   } catch (err) {

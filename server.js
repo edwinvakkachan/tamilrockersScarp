@@ -29,6 +29,7 @@ async function main() {
     await delay(5000);
     for (const value of links) {
       try {
+        await delay(2000)
         await extractPage(value);
       } catch (err) {
         console.error(`Error processing link: ${value}`);
@@ -38,8 +39,8 @@ async function main() {
     }
    await delay(5000);
     await addToTorrent();
-    await delay(5000);
-    await cleanupTodayTorrents();
+    // await delay(5000);
+    // await cleanupTodayTorrents();
 
     console.log("Process completed successfully");
     await sendMessage("tamilROckers scrapping Process completed successfully")
