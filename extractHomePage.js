@@ -1,11 +1,20 @@
 import axios from "axios";
 import { load } from "cheerio";
+import { getBaseUrl } from "./getBaseUrlFromDB.js";
+import { sendMessage } from "./telegram/sendTelegramMessage.js";
 
 
-const BASE_URL = process.env.TAMILROCKERSURL;
+
+const BASE_URL = await getBaseUrl();
+
+
 
 export async function scrapeMalayalamLinks() {
   try {
+
+console.log(`current domain is: ${BASE_URL}`);
+await sendMessage(`current domain is: ${BASE_URL}`)
+
     const { data } = await axios.get(BASE_URL, {
       headers: {
         "User-Agent": "Mozilla/5.0"

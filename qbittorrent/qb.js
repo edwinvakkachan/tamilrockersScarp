@@ -1,11 +1,13 @@
 import axios from "axios";
 import { wrapper } from "axios-cookiejar-support";
 import { CookieJar } from "tough-cookie";
+import dotenv from "dotenv";
+dotenv.config();
 
 const jar = new CookieJar();
 
 const qb = wrapper(axios.create({
-  baseURL: "http://192.168.0.90:8080",
+  baseURL: process.env.QBITIP,
   jar,
   withCredentials: true
 }));
@@ -13,8 +15,8 @@ const qb = wrapper(axios.create({
 export async function loginQB() {
   await qb.post("/api/v2/auth/login", 
     new URLSearchParams({
-      username: "admin",
-      password: "z6we4dj4"
+      username: process.env.BITUSER,
+      password: process.env.QBITPASS
     })
   );
 }

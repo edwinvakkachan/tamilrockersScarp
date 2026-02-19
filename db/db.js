@@ -20,5 +20,22 @@ export async function initDB() {
     )
   `);
 
+  //table for link.
+
+    await pool.query(`
+    CREATE TABLE IF NOT EXISTS settings (
+      key TEXT PRIMARY KEY,
+      value TEXT NOT NULL,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+
+   await pool.query(`
+    INSERT INTO settings (key, value)
+    VALUES ('current_domain', 'https://www.1tamilmv.earth')
+    ON CONFLICT (key) DO NOTHING
+  `);
+
   return pool;
 }
