@@ -83,7 +83,11 @@ export async function cleanupTodayTorrents() {
 
   if (!torrents.length) {
     console.log("No torrents found for today.");
-    await sendMessage("No torrents found for today.")
+    try {
+      await sendMessage("No torrents found for today.")
+    } catch (error) {
+      console.log(error)
+    }
     return;
   }
 
@@ -116,9 +120,17 @@ export async function cleanupTodayTorrents() {
   if (hashesToDelete.length) {
     await deleteTorrents(hashesToDelete);
     console.log("Duplicate torrents deleted.");
-    await sendMessage('Duplicate torrents deleted.');
+    try {
+      await sendMessage('Duplicate torrents deleted.');
+    } catch (error) {
+      console.log(error)
+    }
   } else {
     console.log("No duplicates found.");
-    await sendMessage('No duplicates found.');
+    try {
+      await sendMessage('No duplicates found.');
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
