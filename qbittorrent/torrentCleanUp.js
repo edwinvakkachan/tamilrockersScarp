@@ -108,8 +108,6 @@ export async function cleanupTodayTorrents() {
     const best = selectBestTorrent(group);
 
     console.log(`Keeping for "${movie}":`, best.name);
-   await sendMessage('keeping');
-   await sendMessage(best.name);
     group
       .filter(t => t.hash !== best.hash)
       .forEach(t => hashesToDelete.push(t.hash));

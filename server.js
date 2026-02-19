@@ -27,15 +27,15 @@ async function main() {
 
     console.log(`Found ${links.length} links`);
 
-    // for (const value of links) {
-    //   try {
-    //     await extractPage(value);
-    //   } catch (err) {
-    //     console.error(`Error processing link: ${value}`);
-    //     console.error(err.message);
-    //     await sendMessage(err.message)
-    //   }
-    // }
+    for (const value of links) {
+      try {
+        await extractPage(value);
+      } catch (err) {
+        console.error(`Error processing link: ${value}`);
+        console.error(err.message);
+        await sendMessage(err.message)
+      }
+    }
 
     await addToTorrent();
     await delay(30000);
