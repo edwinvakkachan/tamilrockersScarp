@@ -5,7 +5,7 @@ import { addToTorrent } from "./addTOTorrent.js";
 import { checkDomain } from "./domainTracker.js";
 import { delay } from "./delay.js";
 import { sendMessage } from "./telegram/sendTelegramMessage.js";
-
+import { cleanupTodayTorrents } from "./qbittorrent/torrentCleanUp.js";
 
 async function main() {
   try {
@@ -38,6 +38,8 @@ async function main() {
     }
 
     await addToTorrent();
+    await delay(30000);
+    await cleanupTodayTorrents();
 
     console.log("Process completed successfully");
     await sendMessage("tamilROckers scrapping Process completed successfully")
