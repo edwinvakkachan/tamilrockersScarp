@@ -26,7 +26,7 @@ async function main() {
     }
 
     console.log(`Found ${links.length} links`);
-
+    await delay(5000);
     for (const value of links) {
       try {
         await extractPage(value);
@@ -36,9 +36,9 @@ async function main() {
         await sendMessage(err.message)
       }
     }
-
+   await delay(5000);
     await addToTorrent();
-    await delay(30000);
+    await delay(5000);
     await cleanupTodayTorrents();
 
     console.log("Process completed successfully");
