@@ -38,8 +38,8 @@ async function main() {
     // }
 
     await addToTorrent();
-    await delay(30000);
-    await cleanupTodayTorrents();
+    // await delay(30000);
+    // await cleanupTodayTorrents();
 
     console.log("Process completed successfully");
     await sendMessage("tamilROckers scrapping Process completed successfully")
