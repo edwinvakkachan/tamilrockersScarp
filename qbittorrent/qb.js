@@ -6,7 +6,7 @@ dotenv.config();
 
 const jar = new CookieJar();
 
-const qb = wrapper(axios.create({
+export const qb = wrapper(axios.create({
   baseURL: process.env.QBITIP,
   jar,
   withCredentials: true
