@@ -27,14 +27,14 @@ async function main() {
 
     const links = await scrapeMalayalamLinks();
 
-    if (!links || links.length === 0) {
+    if (!links || links.size === 0) {
       console.log("💥 No links found.");
       await sendMessage("💥 No links found.")
       await delay(1000,true)
       return;
     }
 
-    console.log(`Found ${links.length} links`);
+    console.log(`Found ${links.size} links`);
     await delay(5000);
     for (const value of links) {
       try {

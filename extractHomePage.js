@@ -37,19 +37,14 @@ await sendMessage(`🍷 current domain is: ${BASE_URL}`)
 
       const lowerHref = href.toLowerCase();
 
-    //   if(lowerHref.includes('predvd') 
-    // ){
-    //     return;
-    //   }
-      
+  
+
+      // Optional: Skip PreDVD if you want
+      // if (lowerHref.includes("predvd")) return;
+
+      if (!lowerHref.includes("/forums/topic/")) return;
 
 
-      if (
-        lowerHref.includes("malayalam") ||
-        lowerHref.includes("mal")
-      ) {
-        links.add(href);
-      }
     });
 
   
