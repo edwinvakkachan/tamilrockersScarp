@@ -4,7 +4,6 @@ import { getBaseUrl } from "./getBaseUrlFromDB.js";
 import { sendMessage } from "./telegram/sendTelegramMessage.js";
 
 
-
 const BASE_URL = await getBaseUrl();
 
 
@@ -38,10 +37,10 @@ await sendMessage(`🍷 current domain is: ${BASE_URL}`)
 
       const lowerHref = href.toLowerCase();
 
-      if(lowerHref.includes('predvd') 
-    ){
-        return;
-      }
+    //   if(lowerHref.includes('predvd') 
+    // ){
+    //     return;
+    //   }
       
 
 
@@ -55,6 +54,8 @@ await sendMessage(`🍷 current domain is: ${BASE_URL}`)
 
   
     console.log(`\nTotal Found: ${links.size}`);
+    console.log(links)
+
     return links;
 
   } catch (error) {

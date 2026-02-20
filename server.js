@@ -12,8 +12,10 @@ import { moveTorrentToTop } from "./qbittorrent/qb.js";
 
 
 
+
 async function main() {
   try {
+    
     await sendMessage('🥭🥭🥭🥭🥭🥭🥭🥭🥭');
     console.log('🥭🥭🥭🥭🥭🥭🥭🥭🥭');
     console.log("🚀  tamilrockers scraping Process started");

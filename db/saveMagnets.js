@@ -1,4 +1,5 @@
 import { initDB } from "./db.js";
+import { delay } from "../delay.js";
 
 export async function saveMagnets(magnetLinks) {
   const db = await initDB();
@@ -10,5 +11,7 @@ export async function saveMagnets(magnetLinks) {
        ON CONFLICT (magnet) DO NOTHING`,
       [magnet]
     );
+
+    await delay(300,true);
   }
 }

@@ -49,7 +49,6 @@ export async function extractPage(movieUrl) {
     console.log(
   `[${new Date().toLocaleString()}] magnet links are adding....`
 );
-    await delay(1000,true);
     await saveMagnets(magnetArray)
 
   } catch (err) {
