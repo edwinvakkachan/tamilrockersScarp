@@ -14,9 +14,11 @@ import { moveTorrentToTop } from "./qbittorrent/qb.js";
 
 async function main() {
   try {
-    console.log("tamilrockers scraping Process started");
-    await sendMessage('tamilrockers scraping Process started')
-   await delay(1000,true)
+    await sendMessage('🥭🥭🥭🥭🥭🥭🥭🥭🥭');
+    console.log('🥭🥭🥭🥭🥭🥭🥭🥭🥭');
+    console.log("🚀  tamilrockers scraping Process started");
+    await sendMessage('🚀  tamilrockers scraping Process started')
+
    await checkDomain();
 
    await delay(5000)
@@ -24,8 +26,8 @@ async function main() {
     const links = await scrapeMalayalamLinks();
 
     if (!links || links.length === 0) {
-      console.log("No links found.");
-      await sendMessage("No links found.")
+      console.log("💥 No links found.");
+      await sendMessage("💥 No links found.")
       await delay(1000,true)
       return;
     }
@@ -34,7 +36,7 @@ async function main() {
     await delay(5000);
     for (const value of links) {
       try {
-        await delay(2000)
+        await delay(2000,true)
         await extractPage(value);
       } catch (err) {
         console.error(`Error processing link: ${value}`);
@@ -48,8 +50,10 @@ async function main() {
 
     await delay(5000)
 
-    console.log("Process completed and links are saved in db and added inside the torrent");
-    await sendMessage("tamilROckers scrapping Process completed and links are saved in DB and added to torrent successfully")
+    console.log("🆗 Process completed and links are saved in db and added inside the torrent");
+    await sendMessage("🆗 tamilROckers scrapping Process completed and links are saved in DB and added to torrent successfully")
+  console.log('🥭🥭🥭🥭🥭🥭🥭🥭🥭')
+  await sendMessage('🥭🥭🥭🥭🥭🥭🥭🥭🥭')
   } catch (error) {
     console.error("Fatal error in main():");
     console.error(error);

@@ -1,25 +1,9 @@
 import axios from "axios";
-import dotenv from "dotenv";
-import { initDB } from "./db/db.js";   // your existing DB connection
-
-dotenv.config();
-
-const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
-// const CHECK_INTERVAL =
-//   (process.env.CHECK_INTERVAL_HOURS || 6) * 60 * 60 * 1000;
+import { initDB } from "./db/db.js";
+import { sendMessage } from "./telegram/sendTelegramMessage.js";   // your existing DB connection
 
 
-// Telegram Sender
-async function sendTelegram(message) {
-  const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
 
-  await axios.post(url, {
-    chat_id: CHAT_ID,
-    text: message,
-    parse_mode: "Markdown"
-  });
-}
 
 
 // Get Final Redirect
@@ -55,7 +39,8 @@ export async function checkDomain() {
   );
 
   if (result.rows.length === 0) {
-    console.log("No domain found in DB.");
+    console.log("☠️ No domain found in DB.");
+    await sendMessage("☠️ No domain found in DB.")
     return;
   }
 
@@ -83,11 +68,11 @@ New: ${newDomain}
 Time: ${new Date().toLocaleString()}
 `;
 
-    await sendTelegram(message);
+    await sendMessage(message)
 
     console.log("Domain updated in DB:", newDomain);
   } else {
-    await sendTelegram("Domain unchanged.")
-    console.log("Domain unchanged.");
+    await sendMessage("✔️ Domain unchanged.")
+    console.log("✔️  Domain unchanged.");
   }
 }

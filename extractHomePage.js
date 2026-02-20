@@ -12,8 +12,8 @@ const BASE_URL = await getBaseUrl();
 export async function scrapeMalayalamLinks() {
   try {
 
-console.log(`current domain is: ${BASE_URL}`);
-await sendMessage(`current domain is: ${BASE_URL}`)
+console.log(`🍷 current domain is: ${BASE_URL}`);
+await sendMessage(`🍷 current domain is: ${BASE_URL}`)
 
     const { data } = await axios.get(BASE_URL, {
       headers: {
