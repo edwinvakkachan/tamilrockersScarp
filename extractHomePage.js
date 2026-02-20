@@ -44,6 +44,7 @@ await sendMessage(`🍷 current domain is: ${BASE_URL}`)
 
       if (!lowerHref.includes("/forums/topic/")) return;
 
+links.add(href);
 
     });
 
