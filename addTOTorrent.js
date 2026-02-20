@@ -11,7 +11,7 @@ export async function addToTorrent() {
 
     const result = await db.query(`
       SELECT * FROM magnets
-      WHERE created_at >= NOW() - INTERVAL '1 hours'
+      WHERE created_at >= NOW() - INTERVAL '3 hours'
       ORDER BY created_at DESC
     `);
 
