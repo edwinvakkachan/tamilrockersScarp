@@ -1,5 +1,9 @@
 import { initDB } from "./db/db.js";
-import { loginQB, addMagnet } from "./qbittorrent/qb.js";
+import { loginQB, addMagnet,moveTorrentToTop } from "./qbittorrent/qb.js";
+
+import { delay } from "./delay.js";
+
+
 
 export async function addToTorrent() {
   try {
@@ -21,6 +25,8 @@ export async function addToTorrent() {
     }
 
     console.log("adding complete");
+ await delay(20000);
+ await moveTorrentToTop();
   } catch (error) {
     console.error(error);
   }

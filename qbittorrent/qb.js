@@ -36,25 +36,32 @@ export async function addMagnet(magnet) {
   );
 }
 
-export async function moveTorrentToTop(){
-  const { data: torrents } = await qb.get("/api/v2/torrents/info");
- const today = new Date().toISOString().split("T")[0]; 
-  const addedTorrent = torrents
-    .filter(t => t.tags.includes(today))
-    .sort((a, b) => b.added_on - a.added_on)[0];
+export async function moveTorrentToTop() {
+  const today = new Date().toISOString().split("T")[0];
 
-  if (!addedTorrent) {
-    console.log("❌ Torrent not found after adding.");
+  const { data: torrents } = await qb.get("/api/v2/torrents/info");
+
+  // Get ALL torrents added today (by tag)
+  const addedTorrents = torrents.filter(t =>
+    t.tags && t.tags.includes(today)
+  );
+
+  if (addedTorrents.length === 0) {
+    console.log("❌ No torrents found to move.");
     return;
   }
-  await delay(2000)
-  // 4️⃣ Move it to top priority
+
+  // Collect all hashes
+  const hashes = addedTorrents.map(t => t.hash).join("|");
+
+  await delay(2000);
+
   await qb.post(
     "/api/v2/torrents/topPrio",
     new URLSearchParams({
-      hashes: addedTorrent.hash
+      hashes
     })
   );
 
-  console.log(`✅ Moved "${addedTorrent.name}" to top of queue.`);
+  console.log(`✅ Moved ${addedTorrents.length} torrents to top.`);
 }

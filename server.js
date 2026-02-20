@@ -15,38 +15,38 @@ import { moveTorrentToTop } from "./qbittorrent/qb.js";
 async function main() {
   try {
     console.log("tamilrockers scraping Process started");
-    await sendMessage('tamilrockers scraping Process started')
-   await delay(1000,true)
-   await checkDomain();
+  //   await sendMessage('tamilrockers scraping Process started')
+  //  await delay(1000,true)
+  //  await checkDomain();
 
-   await delay(5000)
+  //  await delay(5000)
 
-    const links = await scrapeMalayalamLinks();
+  //   const links = await scrapeMalayalamLinks();
 
-    if (!links || links.length === 0) {
-      console.log("No links found.");
-      await sendMessage("No links found.")
-      await delay(1000,true)
-      return;
-    }
+  //   if (!links || links.length === 0) {
+  //     console.log("No links found.");
+  //     await sendMessage("No links found.")
+  //     await delay(1000,true)
+  //     return;
+  //   }
 
-    console.log(`Found ${links.length} links`);
-    await delay(5000);
-    for (const value of links) {
-      try {
-        await delay(2000)
-        await extractPage(value);
-      } catch (err) {
-        console.error(`Error processing link: ${value}`);
-        console.error(err.message);
-        await sendMessage("❌ Error processing link ")
-        await delay(1000,true)
-      }
-    }
+  //   console.log(`Found ${links.length} links`);
+  //   await delay(5000);
+  //   for (const value of links) {
+  //     try {
+  //       await delay(2000)
+  //       await extractPage(value);
+  //     } catch (err) {
+  //       console.error(`Error processing link: ${value}`);
+  //       console.error(err.message);
+  //       await sendMessage("❌ Error processing link ")
+  //       await delay(1000,true)
+  //     }
+  //   }
    await delay(5000);
     await addToTorrent();
-    await delay(30000);
-    await moveTorrentToTop();
+    // await delay(30000);
+    // await moveTorrentToTop();
     await delay(5000)
 
     console.log("Process completed saved the links in db successfully");
