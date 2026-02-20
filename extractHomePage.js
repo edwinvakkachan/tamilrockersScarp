@@ -25,7 +25,7 @@ await sendMessage(`🍷 current domain is: ${BASE_URL}`)
 
     const links = new Set();
 
-    $("a[href]").each((_, element) => {
+$("a[href]").each((_, element) => {
   let href = $(element).attr("href");
 
   if (!href) return;
@@ -38,10 +38,16 @@ await sendMessage(`🍷 current domain is: ${BASE_URL}`)
   const lowerHref = href.toLowerCase();
   const text = $(element).text().toLowerCase().trim();
 
-  // Must be a topic page
+  // Must be topic page
   if (!lowerHref.includes("/forums/topic/")) return;
 
-  // Must contain malayalam OR exact word "mal"
+  // ❌ Skip PreDVD (check both URL and title)
+  if (
+    lowerHref.includes("predvd") ||
+    text.includes("predvd")
+  ) return;
+
+  // Must contain Malayalam
   if (
     !text.includes("malayalam") &&
     !/\bmal\b/.test(text)
