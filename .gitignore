@@ -2,3 +2,4 @@
 node_modules
 db/query.js
 logs.js
+temp
