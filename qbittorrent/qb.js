@@ -38,7 +38,7 @@ export async function addMagnet(magnet) {
 
 export async function moveTorrentToTop(){
   const { data: torrents } = await qb.get("/api/v2/torrents/info");
-
+ const today = new Date().toISOString().split("T")[0]; 
   const addedTorrent = torrents
     .filter(t => t.tags.includes(today))
     .sort((a, b) => b.added_on - a.added_on)[0];
