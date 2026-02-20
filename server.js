@@ -1,11 +1,16 @@
 import { extractPage } from "./extractMagnetLink/extractMagnetLink.js";
 // import { movieSearchInPage } from "./movieSearchInPage.js";
 import { scrapeMalayalamLinks } from "./extractHomePage.js";
-import { addToTorrent } from "./addTOTorrent.js";
+import { addToTorrent} from "./addTOTorrent.js";
 import { checkDomain } from "./domainTracker.js";
 import { delay } from "./delay.js";
 import { sendMessage } from "./telegram/sendTelegramMessage.js";
-import { cleanupTodayTorrents } from "./qbittorrent/torrentCleanUp.js";
+// import { cleanupTodayTorrents } from "./qbittorrent/torrentCleanUp.js";
+import { moveTorrentToTop } from "./qbittorrent/qb.js";
+
+
+
+
 
 async function main() {
   try {
@@ -40,11 +45,12 @@ async function main() {
     }
    await delay(5000);
     await addToTorrent();
-    // await delay(5000);
-    // await cleanupTodayTorrents();
+    await delay(30000);
+    await moveTorrentToTop();
+    await delay(5000)
 
-    console.log("Process completed successfully");
-    await sendMessage("tamilROckers scrapping Process completed successfully")
+    console.log("Process completed saved the links in db successfully");
+    await sendMessage("tamilROckers scrapping Process completed and links are saved in DB successfully")
   } catch (error) {
     console.error("Fatal error in main():");
     console.error(error);
