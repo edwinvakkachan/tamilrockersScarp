@@ -48,8 +48,8 @@ async function main() {
 
     await delay(5000)
 
-    console.log("Process completed saved the links in db successfully");
-    await sendMessage("tamilROckers scrapping Process completed and links are saved in DB successfully")
+    console.log("Process completed and links are saved in db and added inside the torrent");
+    await sendMessage("tamilROckers scrapping Process completed and links are saved in DB and added to torrent successfully")
   } catch (error) {
     console.error("Fatal error in main():");
     console.error(error);
