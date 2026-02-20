@@ -18,7 +18,7 @@ export async function addToTorrent() {
     const rows = result.rows;
 
     await loginQB();
-    console.log("adding torrents");
+    console.log("adding torrents from DB");
 
     for (const value of rows) {
       await addMagnet(value.magnet);
