@@ -47,11 +47,18 @@ $("a[href]").each((_, element) => {
     text.includes("predvd")
   ) return;
 
-  // Must contain Malayalam
+  // Must contain Malayalam in text
   if (
     !text.includes("malayalam") &&
     !/\bmal\b/.test(text)
-  ) return;
+  ){
+if(!lowerHref.includes("malayalam") &&
+    !/\bmal\b/.test(lowerHref)) {
+return;
+    }
+
+  } 
+
 
   links.add(href);
 });
