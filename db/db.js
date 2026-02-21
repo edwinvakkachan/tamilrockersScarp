@@ -37,5 +37,31 @@ export async function initDB() {
     ON CONFLICT (key) DO NOTHING
   `);
 
+    await pool.query(`
+  CREATE TABLE IF NOT EXISTS processed_links (
+    id SERIAL PRIMARY KEY,
+    href TEXT UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )
+`);
+
   return pool;
+}
+
+
+export async function insertLinkIfNew(href) {
+  try {
+    const result = await pool.query(
+      `INSERT INTO processed_links (href)
+       VALUES ($1)
+       ON CONFLICT (href) DO NOTHING
+       RETURNING id`,
+      [href]
+    );
+
+    return result.rowCount === 1; // true if new
+  } catch (err) {
+    console.error("DB insert error:", err.message);
+    throw err;
+  }
 }

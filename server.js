@@ -8,7 +8,7 @@ import { sendMessage } from "./telegram/sendTelegramMessage.js";
 // import { cleanupTodayTorrents } from "./qbittorrent/torrentCleanUp.js";
 // import { moveTorrentToTop } from "./qbittorrent/qb.js";
 import { triggerHomeAssistantWebhook } from "./homeassistant/homeAssistantWebhook.js";
-
+import { insertLinkIfNew } from "./db/db.js";
 
 
 
@@ -37,17 +37,34 @@ async function main() {
 
     console.log(`Found ${links.size} links`);
     await delay(5000);
+
+    //loops 
+
+
     for (const value of links) {
-      try {
-        await delay(2000,true)
-        await extractPage(value);
-      } catch (err) {
-        console.error(`Error processing link: ${value}`);
-        console.error(err.message);
-        await sendMessage("❌ Error processing link ")
-        await delay(1000,true)
-      }
+  try {
+    const isNew = await insertLinkIfNew(value);
+
+    if (!isNew) {
+      console.log("⏩ Skipping already processed:", value);
+      await delay(500,true)
+      continue;
     }
+
+    console.log("🆕 New link:", value);
+
+    await delay(500, true);
+    await extractPage(value);
+
+  } catch (err) {
+    console.error(`Error processing link: ${value}`);
+    console.error(err.message);
+    await sendMessage("❌ Error processing link ");
+    await delay(1000, true);
+  }
+}
+
+
    await delay(5000);
     await addToTorrent();
 
