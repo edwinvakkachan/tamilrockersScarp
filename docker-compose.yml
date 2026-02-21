@@ -14,7 +14,7 @@ services:
       QBITIP: ${QBITIP}
       QBITUSER: ${QBITUSER}
       QBITPASS: ${QBITPASS}
-     # HOMEASSISTANTWEBHOOK: ${HOMEASSISTANTWEBHOOK}
+      HA_WEBHOOK_URL: ${HA_WEBHOOK_URL} #triggering next app after complting current app tasks
 
 
 

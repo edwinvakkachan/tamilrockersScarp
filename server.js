@@ -6,7 +6,8 @@ import { checkDomain } from "./domainTracker.js";
 import { delay } from "./delay.js";
 import { sendMessage } from "./telegram/sendTelegramMessage.js";
 // import { cleanupTodayTorrents } from "./qbittorrent/torrentCleanUp.js";
-import { moveTorrentToTop } from "./qbittorrent/qb.js";
+// import { moveTorrentToTop } from "./qbittorrent/qb.js";
+import { triggerHomeAssistantWebhook } from "./homeassistant/homeAssistantWebhook.js";
 
 
 
@@ -54,7 +55,14 @@ async function main() {
 
     console.log("🆗 Process completed and links are saved in db and added inside the torrent");
     await sendMessage("🆗 tamilROckers scrapping Process completed and links are saved in DB and added to torrent successfully")
-  console.log('🥭🥭🥭🥭🥭🥭🥭🥭🥭')
+  
+await triggerHomeAssistantWebhook({
+  status: "success",
+  message: "Torrent cleaning completed",
+  time: new Date().toISOString(),
+});
+
+    console.log('🥭🥭🥭🥭🥭🥭🥭🥭🥭')
   await sendMessage('🥭🥭🥭🥭🥭🥭🥭🥭🥭')
   } catch (error) {
     console.error("Fatal error in main():");
