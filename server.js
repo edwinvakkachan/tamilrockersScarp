@@ -47,13 +47,13 @@ async function main() {
 
     if (!isNew) {
       console.log("⏩ Skipping already processed:", value);
-      await delay(500,true)
+      // await delay(500,true)
       continue;
     }
 
     console.log("🆕 New link:", value);
 
-    await delay(500, true);
+    // await delay(500, true);
     await extractPage(value);
 
   } catch (err) {
