@@ -47,7 +47,7 @@ async function main() {
     const isNew = await insertLinkIfNew(value);
 
     if (!isNew) {
-      console.log("⏩ Skipping already processed:", value);
+      // console.log("⏩ Skipping already processed:", value);
       continue;
     }
 
@@ -77,7 +77,7 @@ await triggerHomeAssistantWebhook({
   message: "Torrent cleaning completed",
   time: new Date().toISOString(),
 });
-
+     await log();
     console.log('🥭🥭🥭🥭🥭🥭🥭🥭🥭')
   await sendMessage('🥭🥭🥭🥭🥭🥭🥭🥭🥭')
   } catch (error) {
