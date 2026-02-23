@@ -9,7 +9,7 @@ import { sendMessage } from "./telegram/sendTelegramMessage.js";
 // import { moveTorrentToTop } from "./qbittorrent/qb.js";
 import { triggerHomeAssistantWebhook } from "./homeassistant/homeAssistantWebhook.js";
 import { insertLinkIfNew } from "./db/db.js";
-
+import { log } from "./timelog.js";
 
 
 
@@ -21,6 +21,7 @@ async function main() {
     console.log('🥭🥭🥭🥭🥭🥭🥭🥭🥭');
     console.log("🚀  tamilrockers scraping Process started");
     await sendMessage('🚀  tamilrockers scraping Process started')
+    await log();
 
    await checkDomain();
 
