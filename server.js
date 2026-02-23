@@ -39,7 +39,7 @@ async function main() {
     console.log(`Found ${links.size} links`);
     await delay(5000);
 
-    //loops 
+
 
 
     for (const value of links) {
@@ -48,13 +48,11 @@ async function main() {
 
     if (!isNew) {
       console.log("⏩ Skipping already processed:", value);
-      // await delay(500,true)
       continue;
     }
 
     console.log("🆕 New link:", value);
 
-    // await delay(500, true);
     await extractPage(value);
 
   } catch (err) {

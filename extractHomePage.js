@@ -2,6 +2,7 @@ import axios from "axios";
 import { load } from "cheerio";
 import { getBaseUrl } from "./getBaseUrlFromDB.js";
 import { sendMessage } from "./telegram/sendTelegramMessage.js";
+import { delay } from "./delay.js";
 
 
 const BASE_URL = await getBaseUrl();
@@ -24,45 +25,6 @@ await sendMessage(`🍷 current domain is: ${BASE_URL}`)
    
 
     const links = new Set();
-
-// $("a[href]").each((_, element) => {
-//   let href = $(element).attr("href");
-
-//   if (!href) return;
-
-//   // Convert relative to absolute
-//   if (href.startsWith("/")) {
-//     href = new URL(href, BASE_URL).href;
-//   }
-
-//   const lowerHref = href.toLowerCase();
-//   const text = $(element).text().toLowerCase().trim();
-
-//   // Must be topic page
-//   if (!lowerHref.includes("/forums/topic/")) return;
-
-//   // ❌ Skip PreDVD (check both URL and title)
-//   if (
-//     lowerHref.includes("predvd") ||
-//     text.includes("predvd")
-//   ) return;
-
-//   // Must contain Malayalam in text
-//   if (
-//     !text.includes("malayalam") &&
-//     !/\bmal\b/.test(text) 
-//   ){
-// if(!lowerHref.includes("malayalam") &&
-//     !/\bmal\b/.test(lowerHref)) {
-// return;
-//     }
-
-//   } 
-
-
-//   links.add(href);
-// });
-
 
 const languageRegex = /\b(malayalam|mal|tamil|tam)\b/i;
 
@@ -94,8 +56,8 @@ $("a[href]").each((_, element) => {
 });
   
     console.log(`\nTotal Found: ${links.size}`);
-    console.log(links)
-
+    await delay(2000,true);
+ 
     return links;
 
   } catch (error) {

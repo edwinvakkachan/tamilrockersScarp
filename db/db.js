@@ -1,6 +1,7 @@
 import pkg from "pg";
 const { Pool } = pkg;
 import 'dotenv/config';
+import { delay } from "../delay.js";
 
 
 
@@ -58,7 +59,7 @@ export async function insertLinkIfNew(href) {
        RETURNING id`,
       [href]
     );
-
+    await delay(300,true);
     return result.rowCount === 1; // true if new
   } catch (err) {
     console.error("DB insert error:", err.message);
