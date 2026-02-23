@@ -36,9 +36,9 @@ async function main() {
       return;
     }
 
-    console.log(`Found ${links.size} links`);
     await delay(5000);
-
+    
+    console.log(`it will take 5 minutes to complete`);
 
 
 
