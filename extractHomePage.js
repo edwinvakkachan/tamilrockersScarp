@@ -26,7 +26,7 @@ await sendMessage(`🍷 current domain is: ${BASE_URL}`)
 
     const links = new Set();
 
-const languageRegex = /\b(malayalam|mal|tamil|tam)\b/i;
+const languageRegex = /\b(malayalam|mal|tamil|tam|hindi|hin)\b/i;
 
 $("a[href]").each((_, element) => {
   const rawHref = $(element).attr("href");
