@@ -18,9 +18,9 @@ export async function triggerHomeAssistantWebhook(payload = {}) {
       timeout: 5000,
     });
 
-    console.log("✅ Home Assistant webhook triggered:", response.status);
+    console.log("✅ Home Assistant webhook triggered: for next app", response.status);
   } catch (error) {
-    console.error("❌ Failed to trigger Home Assistant webhook");
+    console.error("❌ Failed to trigger Home Assistant webhook for next app");
     console.error(error.message);
   }
 }
@@ -41,7 +41,7 @@ export async function triggerHomeAssistantWebhookWhenErrorOccurs(payload = {}) {
 
     console.log("✅ app failed webhook triggered for running again:", response.status);
   } catch (error) {
-    console.error("❌ Failed to trigger Home Assistant webhook");
+    console.error("❌ Failed to trigger Home Assistant webhook for running again:");
     console.error(error.message);
   }
 }
