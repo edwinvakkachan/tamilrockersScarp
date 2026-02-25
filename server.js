@@ -7,7 +7,7 @@ import { delay } from "./delay.js";
 import { sendMessage } from "./telegram/sendTelegramMessage.js";
 // import { cleanupTodayTorrents } from "./qbittorrent/torrentCleanUp.js";
 // import { moveTorrentToTop } from "./qbittorrent/qb.js";
-import { triggerHomeAssistantWebhook } from "./homeassistant/homeAssistantWebhook.js";
+import { triggerHomeAssistantWebhook,triggerHomeAssistantWebhookWhenErrorOccurs } from "./homeassistant/homeAssistantWebhook.js";
 import { insertLinkIfNew } from "./db/db.js";
 import { log } from "./timelog.js";
 
@@ -84,6 +84,11 @@ await triggerHomeAssistantWebhook({
     console.error("Fatal error in main():");
     console.error(error);
     await sendMessage("❌  Fatal error in main():")
+  await triggerHomeAssistantWebhookWhenErrorOccurs({
+  status: "success",
+  message: "❌  Fatal error in main():",
+  time: new Date().toISOString(),
+});
   }
 }
 
