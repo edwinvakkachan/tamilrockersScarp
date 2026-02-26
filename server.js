@@ -16,11 +16,8 @@ import { log } from "./timelog.js";
 
 async function main() {
   try {
-    
-    await sendMessage('🥭🥭🥭🥭🥭🥭🥭🥭🥭');
     console.log('🥭🥭🥭🥭🥭🥭🥭🥭🥭');
     console.log("🚀  tamilrockers scraping Process started");
-    await sendMessage('🚀  tamilrockers scraping Process started')
     await log();
 
    await checkDomain();
@@ -31,7 +28,6 @@ async function main() {
 
     if (!links || links.size === 0) {
       console.log("💥 No links found.");
-      await sendMessage("💥 No links found.")
       await delay(1000,true)
       return;
     }
@@ -70,7 +66,6 @@ async function main() {
     await delay(5000)
 
     console.log("🆗 Process completed and links are saved in db and added inside the torrent");
-    await sendMessage("🆗 tamilROckers scrapping Process completed and links are saved in DB and added to torrent successfully")
   
 await triggerHomeAssistantWebhook({
   status: "success",
@@ -79,7 +74,7 @@ await triggerHomeAssistantWebhook({
 });
      await log();
     console.log('🥭🥭🥭🥭🥭🥭🥭🥭🥭')
-  await sendMessage('🥭🥭🥭🥭🥭🥭🥭🥭🥭')
+    await sendMessage('tramil rockers scraping completed');
   } catch (error) {
     console.error("Fatal error in main():");
     console.error(error);
