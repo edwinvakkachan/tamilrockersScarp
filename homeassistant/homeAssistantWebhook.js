@@ -1,4 +1,5 @@
 import axios from "axios";
+import { delay } from "../delay.js";
 
 const HA_WEBHOOK_URL = process.env.HA_WEBHOOK_URL;
 const HA_WEBHOOKERROR_URL = process.env.HA_WEBHOOKERROR_URL;  
@@ -18,7 +19,9 @@ export async function triggerHomeAssistantWebhook(payload = {}) {
       timeout: 5000,
     });
 
+    await delay(10000,true);
     console.log("✅ Home Assistant webhook triggered: for next app", response.status);
+    return;
   } catch (error) {
     console.error("❌ Failed to trigger Home Assistant webhook for next app");
     console.error(error.message);
@@ -38,8 +41,9 @@ export async function triggerHomeAssistantWebhookWhenErrorOccurs(payload = {}) {
       },
       timeout: 5000,
     });
-
+    await delay(10000,true);
     console.log("✅ app failed webhook triggered for running again:", response.status);
+    return ;
   } catch (error) {
     console.error("❌ Failed to trigger Home Assistant webhook for running again:");
     console.error(error.message);
