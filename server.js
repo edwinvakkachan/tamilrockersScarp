@@ -18,7 +18,7 @@ async function main() {
   try {
     console.log('🥭🥭🥭🥭🥭🥭🥭🥭🥭');
     console.log("🚀  tamilrockers scraping Process started");
-    await log();
+    // await log();
 
    await checkDomain();
 
