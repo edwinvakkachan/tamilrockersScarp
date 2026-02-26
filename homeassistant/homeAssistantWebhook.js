@@ -12,7 +12,7 @@ export async function triggerHomeAssistantWebhook(payload = {}) {
       return;
     }
 
-    const response = await axios.post(HA_WEBHOOK_URL, payload, {
+    const response = await axios.post(HA_WEBHOOK_URL, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -35,7 +35,7 @@ export async function triggerHomeAssistantWebhookWhenErrorOccurs(payload = {}) {
       return;
     }
 
-    const response = await axios.post(HA_WEBHOOKERROR_URL, payload, {
+    const response = await axios.post(HA_WEBHOOKERROR_URL,{
       headers: {
         "Content-Type": "application/json",
       },
