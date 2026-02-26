@@ -67,11 +67,7 @@ async function main() {
 
     console.log("🆗 Process completed and links are saved in db and added inside the torrent");
   
-await triggerHomeAssistantWebhook({
-  status: "success",
-  message: "Torrent cleaning completed",
-  time: new Date().toISOString(),
-});
+await triggerHomeAssistantWebhook();
      await log();
     console.log('🥭🥭🥭🥭🥭🥭🥭🥭🥭')
     await sendMessage('tramil rockers scraping completed');
@@ -79,11 +75,7 @@ await triggerHomeAssistantWebhook({
     console.error("Fatal error in main():");
     console.error(error);
     await sendMessage("❌  Fatal error in main():")
-  await triggerHomeAssistantWebhookWhenErrorOccurs({
-  status: "success",
-  message: "❌  Fatal error in main():",
-  time: new Date().toISOString(),
-});
+  await triggerHomeAssistantWebhookWhenErrorOccurs();
   }
 }
 

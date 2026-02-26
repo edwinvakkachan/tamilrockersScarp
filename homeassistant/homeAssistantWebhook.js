@@ -1,11 +1,12 @@
 import axios from "axios";
 import { delay } from "../delay.js";
+import { sendMessage } from "../telegram/sendTelegramMessage.js";
 
 const HA_WEBHOOK_URL = process.env.HA_WEBHOOK_URL;
 const HA_WEBHOOKERROR_URL = process.env.HA_WEBHOOKERROR_URL;  
 // Example: http://192.168.0.50:8123/api/webhook/your_webhook_id
 
-export async function triggerHomeAssistantWebhook(payload = {}) {
+export async function triggerHomeAssistantWebhook() {
   try {
     if (!HA_WEBHOOK_URL) {
       console.warn("⚠️ HA_WEBHOOK_URL not set in .env");
@@ -24,6 +25,7 @@ export async function triggerHomeAssistantWebhook(payload = {}) {
     return;
   } catch (error) {
     console.error("❌ Failed to trigger Home Assistant webhook for next app");
+    await sendMessage("❌ Failed to trigger Home Assistant webhook for next app")
     console.error(error.message);
   }
 }
@@ -46,6 +48,7 @@ export async function triggerHomeAssistantWebhookWhenErrorOccurs(payload = {}) {
     return ;
   } catch (error) {
     console.error("❌ Failed to trigger Home Assistant webhook for running again:");
+    await sendMessage("❌ Failed to trigger Home Assistant webhook for running again:")
     console.error(error.message);
   }
 }
