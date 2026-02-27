@@ -25,20 +25,22 @@ await log();
 
    await checkDomain();
 
-   await delay(5000)
+   await delay(2000)
 
     const links = await scrapeMalayalamLinks();
+
+    // console.log(links)
+
+
 
     if (!links || links.size === 0) {
       console.log("💥 No links found.");
               await publishMessage({
   message: "💥 No links found."
 });
-      await delay(1000,true)
       return;
     }
 
-    await delay(5000);
     
     console.log(`it will take 5 minutes to complete `);
 
@@ -67,15 +69,14 @@ await log();
             await publishMessage({
   message: "❌ Error processing link "
 });
-    await delay(1000, true);
   }
 }
 
 
-   await delay(5000);
+   await delay(2000);
     await addToTorrent();
 
-    await delay(5000)
+    await delay(2000)
 
     console.log("🆗 Process completed and links are saved in db and added inside the torrent");
   
