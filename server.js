@@ -83,7 +83,6 @@ await log();
   5
 );
 
-     await log();
     console.log('🥭🥭🥭🥭🥭🥭🥭🥭🥭')
             await publishMessage({
   message: "🥭🥭🥭🥭🥭🥭🥭🥭🥭"
