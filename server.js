@@ -51,7 +51,7 @@ await log();
     const isNew = await insertLinkIfNew(value);
 
     if (!isNew) {
-      // console.log("⏩ Skipping already processed:", value);
+      console.log("⏩ Skipping already processed:", value);
       continue;
     }
 
