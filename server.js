@@ -76,7 +76,12 @@ await log();
 
     console.log("🆗 Process completed and links are saved in db and added inside the torrent");
   
-await retry(triggerHomeAssistantWebhook);
+    await retry(
+  triggerHomeAssistantWebhook,
+  { status: "success" },
+  "homeassistant-success",
+  5
+);
 
      await log();
     console.log('🥭🥭🥭🥭🥭🥭🥭🥭🥭')
@@ -94,7 +99,13 @@ await retry(triggerHomeAssistantWebhook);
   message: "❌  Fatal error in main():"
 });
 
-  await retry(triggerHomeAssistantWebhookWhenErrorOccurs)
+      await retry(
+  triggerHomeAssistantWebhookWhenErrorOccurs,
+  { status: "error" },
+  "homeassistant-error",
+  5
+);
+
   }
 }
 
