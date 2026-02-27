@@ -1,24 +1,27 @@
 import { extractPage } from "./extractMagnetLink/extractMagnetLink.js";
-// import { movieSearchInPage } from "./movieSearchInPage.js";
 import { scrapeMalayalamLinks } from "./extractHomePage.js";
 import { addToTorrent} from "./addTOTorrent.js";
 import { checkDomain } from "./domainTracker.js";
 import { delay } from "./delay.js";
-import { sendMessage } from "./telegram/sendTelegramMessage.js";
-// import { cleanupTodayTorrents } from "./qbittorrent/torrentCleanUp.js";
-// import { moveTorrentToTop } from "./qbittorrent/qb.js";
 import { triggerHomeAssistantWebhook,triggerHomeAssistantWebhookWhenErrorOccurs } from "./homeassistant/homeAssistantWebhook.js";
 import { insertLinkIfNew } from "./db/db.js";
 import { log } from "./timelog.js";
+import { retry } from "./homeassistant/retryWrapper.js";
+import { publishMessage } from "./queue/publishMessage.js";
 
 
 
 
 async function main() {
   try {
-    console.log('🥭🥭🥭🥭🥭🥭🥭🥭🥭');
+
+await log();
     console.log("🚀  tamilrockers scraping Process started");
-    // await log();
+           
+    await publishMessage({
+  message: "🚀  tamilrockers scraping Process started"
+});
+    
 
    await checkDomain();
 
@@ -28,13 +31,16 @@ async function main() {
 
     if (!links || links.size === 0) {
       console.log("💥 No links found.");
+              await publishMessage({
+  message: "💥 No links found."
+});
       await delay(1000,true)
       return;
     }
 
     await delay(5000);
     
-    console.log(`it will take 5 minutes to complete`);
+    console.log(`it will take 5 minutes to complete `);
 
 
 
@@ -49,12 +55,15 @@ async function main() {
 
     console.log("🆕 New link:", value);
 
+
     await extractPage(value);
 
   } catch (err) {
     console.error(`Error processing link: ${value}`);
     console.error(err.message);
-    await sendMessage("❌ Error processing link ");
+            await publishMessage({
+  message: "❌ Error processing link "
+});
     await delay(1000, true);
   }
 }
@@ -67,15 +76,25 @@ async function main() {
 
     console.log("🆗 Process completed and links are saved in db and added inside the torrent");
   
-await triggerHomeAssistantWebhook();
+await retry(triggerHomeAssistantWebhook);
+
      await log();
     console.log('🥭🥭🥭🥭🥭🥭🥭🥭🥭')
-    await sendMessage('tramil rockers scraping completed');
+            await publishMessage({
+  message: "🥭🥭🥭🥭🥭🥭🥭🥭🥭"
+});
+            await publishMessage({
+  message: 'tramil rockers scraping completed successfully 💯'
+});
   } catch (error) {
     console.error("Fatal error in main():");
     console.error(error);
-    await sendMessage("❌  Fatal error in main():")
-  await triggerHomeAssistantWebhookWhenErrorOccurs();
+
+            await publishMessage({
+  message: "❌  Fatal error in main():"
+});
+
+  await retry(triggerHomeAssistantWebhookWhenErrorOccurs)
   }
 }
 

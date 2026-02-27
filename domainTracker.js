@@ -1,7 +1,10 @@
 import axios from "axios";
 import { initDB } from "./db/db.js";
-import { sendMessage } from "./telegram/sendTelegramMessage.js";   // your existing DB connection
+  // your existing DB connection
 
+
+  
+import { publishMessage } from "./queue/publishMessage.js";
 
 
 
@@ -40,7 +43,9 @@ export async function checkDomain() {
 
   if (result.rows.length === 0) {
     console.log("☠️ No domain found in DB.");
-    await sendMessage("☠️ No domain found in DB.")
+        await publishMessage({
+  message: "☠️ No domain found in DB."
+});
     return;
   }
 
@@ -68,11 +73,16 @@ New: ${newDomain}
 Time: ${new Date().toLocaleString()}
 `;
 
-    await sendMessage(message)
+            await publishMessage({
+  message: message
+});
 
     console.log("Domain updated in DB:", newDomain);
   } else {
-    await sendMessage("✔️ Domain unchanged.")
+
+            await publishMessage({
+  message: "✔️ Domain unchanged."
+});
     console.log("✔️  Domain unchanged.");
   }
 }

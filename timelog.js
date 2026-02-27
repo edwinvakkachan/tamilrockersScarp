@@ -1,5 +1,4 @@
-import { sendMessage } from "./telegram/sendTelegramMessage.js";
-
+import { publishMessage } from "./queue/publishMessage.js";
 
 
 export async function log(message='⌚') {
@@ -8,6 +7,10 @@ export async function log(message='⌚') {
     hour12: false
   });
 
-await sendMessage(`[${time}] ${message}`)
-  console.log(`[${time}] ${message}`);
+
+        await publishMessage({
+  message: `🥭🥭🥭 ${time} 🥭🥭🥭`
+});
+
+  console.log(`🥭🥭🥭🥭 ${time} 🥭🥭🥭🥭`);
 }
