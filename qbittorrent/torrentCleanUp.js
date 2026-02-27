@@ -1,6 +1,5 @@
 import { qb } from "./qb.js";
-import { sendMessage } from "../telegram/sendTelegramMessage.js";
-
+import { publishMessage } from "../queue/publishMessage.js";
 const TWO_GB = 2 * 1024 * 1024 * 1024;
 
 function getTodayTag() {
@@ -26,17 +25,6 @@ export async function deleteTorrents(hashes) {
   );
 }
 
-/**
- * Extract base movie title (remove resolution, codec etc)
- */
-// function extractMovieKey(name) {
-//   return name
-//     .replace(/\b(2160p|1080p|720p|480p)\b/gi, "")
-//     .replace(/\b(x265|x264|HEVC|HDRip|WEB-DL|AAC|DD5\.1).*$/i, "")
-//     .replace(/\s+/g, " ")
-//     .trim()
-//     .toLowerCase();
-// }
 
 
 function extractMovieKey(name) {
@@ -84,7 +72,9 @@ export async function cleanupTodayTorrents() {
   if (!torrents.length) {
     console.log("No torrents found for today.");
     try {
-      await sendMessage("No torrents found for today.")
+          await publishMessage({
+        message: "No torrents found for today."
+      });
     } catch (error) {
       console.log(error)
     }
@@ -121,14 +111,19 @@ export async function cleanupTodayTorrents() {
     await deleteTorrents(hashesToDelete);
     console.log("Duplicate torrents deleted.");
     try {
-      await sendMessage('Duplicate torrents deleted.');
+
+          await publishMessage({
+        message: 'Duplicate torrents deleted.'
+      });
     } catch (error) {
       console.log(error)
     }
   } else {
     console.log("No duplicates found.");
     try {
-      await sendMessage('No duplicates found.');
+          await publishMessage({
+        message: 'No duplicates found.'
+      });
     } catch (error) {
       console.log(error)
     }
