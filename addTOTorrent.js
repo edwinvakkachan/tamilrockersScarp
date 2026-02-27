@@ -25,7 +25,7 @@ export async function addToTorrent() {
     }
 
     console.log("adding complete");
- await delay(20000);
+ await delay(2000);
  await moveTorrentToTop();
   } catch (error) {
     console.error(error);

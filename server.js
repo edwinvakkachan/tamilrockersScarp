@@ -38,6 +38,12 @@ await log();
               await publishMessage({
   message: "💥 No links found."
 });
+      await retry(
+  triggerHomeAssistantWebhookWhenErrorOccurs,
+  { status: "error" },
+  "homeassistant-error",
+  5
+);
       return;
     }
 
