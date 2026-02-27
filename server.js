@@ -54,6 +54,9 @@ await log();
     }
 
     console.log("🆕 New link:", value);
+        await publishMessage({
+  message: `🆕 New link: ${value}`
+});
 
 
     await extractPage(value);
