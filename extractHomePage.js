@@ -43,7 +43,17 @@ $("a[href]").each((_, element) => {
 
   // const text = $(element).text().trim().toLowerCase();
 
-  const text = $(element).parent().text().trim().toLowerCase();
+const anchorText = $(element).text().toLowerCase();
+
+const prevTitle = $(element)
+  .closest("strong")
+  .prev()
+  .text()
+  .toLowerCase();
+
+const text = `${prevTitle} ${anchorText}`;
+
+console.log(text);
 
   // Must be topic page
   if (!lowerHref.includes("/forums/topic/")) return;
@@ -54,7 +64,7 @@ $("a[href]").each((_, element) => {
   // Combine text + URL for single language check
   const searchableContent = `${text} ${lowerHref}`;
 
-  
+
   // checking enlgish or not 
   
   if (lowerHref.includes("english") || text.includes("english")) return;
