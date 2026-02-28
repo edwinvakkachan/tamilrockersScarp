@@ -4,6 +4,7 @@ import { triggerHomeAssistantWebhookWhenErrorOccurs } from "./homeassistant/home
 
 export async function getBaseUrl() {
   const db = await initDB();
+let result;
 
 try {
     const result = await db.query(
