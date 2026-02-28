@@ -19,6 +19,7 @@ try {
     "homeassistant-error",
     5
   );
+  process.exit(1)
 }
 
 export default pool;
