@@ -47,6 +47,11 @@ $("a[href]").each((_, element) => {
 
   // Skip PreDVD (URL or title)
   if (lowerHref.includes("predvd") || text.includes("predvd")) return;
+  
+// checking enlgish or not 
+  if (lowerHref.includes("english") || text.includes("english")) return;
+
+  if (lowerHref.includes("eng") || text.includes("eng")) return;
 
   // Combine text + URL for single language check
   const searchableContent = `${text} ${lowerHref}`;
