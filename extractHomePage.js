@@ -40,7 +40,7 @@ $("a[href]").each((_, element) => {
     : rawHref;
 
   const lowerHref = href.toLowerCase();
-  
+
   // const text = $(element).text().trim().toLowerCase();
 
   const text = $(element).parent().text().trim().toLowerCase();
@@ -52,9 +52,15 @@ $("a[href]").each((_, element) => {
   if (lowerHref.includes("predvd") || text.includes("predvd")) return;
 
 // checking enlgish or not 
+
   if (lowerHref.includes("english") || text.includes("english")) return;
 
-  if (lowerHref.includes("eng") || text.includes("eng")) return;
+
+  if (/\beng\b/i.test(searchableContent)) return;
+
+  // ignore chinese 
+
+  if (/\bchi\b/i.test(searchableContent)) return;
 
   // Combine text + URL for single language check
   const searchableContent = `${text} ${lowerHref}`;
