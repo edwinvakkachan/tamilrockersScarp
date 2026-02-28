@@ -7,7 +7,7 @@ export async function getBaseUrl() {
 let result;
 
 try {
-    const result = await db.query(
+     result = await db.query(
       "SELECT value FROM settings WHERE key = $1",
       ["current_domain"]
     );
