@@ -4,42 +4,54 @@ import 'dotenv/config';
 import { delay } from "../delay.js";
 
 import pool from "../db/pool.js";
-
-
+import { triggerHomeAssistantWebhookWhenErrorOccurs } from "../homeassistant/homeAssistantWebhook.js";
+import { retry } from "../homeassistant/retryWrapper.js";
 
 export async function initDB() {
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS magnets (
+try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS magnets (
+        id SERIAL PRIMARY KEY,
+        magnet TEXT UNIQUE NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+  
+    //table for link.
+  
+      await pool.query(`
+      CREATE TABLE IF NOT EXISTS settings (
+        key TEXT PRIMARY KEY,
+        value TEXT NOT NULL,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+  
+  
+     await pool.query(`
+      INSERT INTO settings (key, value)
+      VALUES ('current_domain', 'https://www.1tamilmv.earth')
+      ON CONFLICT (key) DO NOTHING
+    `);
+  
+      await pool.query(`
+    CREATE TABLE IF NOT EXISTS processed_links (
       id SERIAL PRIMARY KEY,
-      magnet TEXT UNIQUE NOT NULL,
+      href TEXT UNIQUE NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
   `);
+} catch (error) {
+  console.error("DB insert error:", err.message);
+          await retry(
+    triggerHomeAssistantWebhookWhenErrorOccurs,
+    { status: "error" },
+    "homeassistant-error",
+    5
+  );
 
-  //table for link.
-
-    await pool.query(`
-    CREATE TABLE IF NOT EXISTS settings (
-      key TEXT PRIMARY KEY,
-      value TEXT NOT NULL,
-      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )
-  `);
-
-
-   await pool.query(`
-    INSERT INTO settings (key, value)
-    VALUES ('current_domain', 'https://www.1tamilmv.earth')
-    ON CONFLICT (key) DO NOTHING
-  `);
-
-    await pool.query(`
-  CREATE TABLE IF NOT EXISTS processed_links (
-    id SERIAL PRIMARY KEY,
-    href TEXT UNIQUE NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-  )
-`);
+  process.exit(1);
+}
 
   return pool;
 }
@@ -57,7 +69,15 @@ export async function insertLinkIfNew(href) {
     await delay(300,true);
     return result.rowCount === 1; // true if new
   } catch (err) {
-    console.error("DB insert error:", err.message);
-    throw err;
+    console.error("DB insertLinkIfNew:", err.message);
+            await retry(
+    triggerHomeAssistantWebhookWhenErrorOccurs,
+    { status: "error" },
+    "homeassistant-error",
+    5
+  );
+
+
+  process.exit(1);
   }
 }

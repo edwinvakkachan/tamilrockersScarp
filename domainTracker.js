@@ -5,7 +5,8 @@ import { initDB } from "./db/db.js";
 
   
 import { publishMessage } from "./queue/publishMessage.js";
-
+import { retry } from "./homeassistant/retryWrapper.js";
+import { triggerHomeAssistantWebhookWhenErrorOccurs } from "./homeassistant/homeAssistantWebhook.js";
 
 
 
@@ -36,10 +37,22 @@ function extractDomain(url) {
 export async function checkDomain() {
   const db = await initDB();
 
-  const result = await db.query(
-    "SELECT value FROM settings WHERE key = $1",
-    ["current_domain"]
+try {
+    const result = await db.query(
+      "SELECT value FROM settings WHERE key = $1",
+      ["current_domain"]
+    );
+} catch (error) {
+  console.error('current domain db check error',error);
+         await retry(
+    triggerHomeAssistantWebhookWhenErrorOccurs,
+    { status: "error" },
+    "homeassistant-error",
+    5
   );
+
+  process.exit(1);
+}
 
   if (result.rows.length === 0) {
     console.log("☠️ No domain found in DB.");
@@ -60,10 +73,22 @@ export async function checkDomain() {
 
   if (newDomain !== currentDomain) {
 
-    await db.query(
-      "UPDATE settings SET value = $1, updated_at = CURRENT_TIMESTAMP WHERE key = $2",
-      [newDomain, "current_domain"]
-    );
+  try {
+      await db.query(
+        "UPDATE settings SET value = $1, updated_at = CURRENT_TIMESTAMP WHERE key = $2",
+        [newDomain, "current_domain"]
+      );
+  } catch (error) {
+    console.error('checking old and new domain db error',error)
+           await retry(
+    triggerHomeAssistantWebhookWhenErrorOccurs,
+    { status: "error" },
+    "homeassistant-error",
+    5
+  );
+
+  process.exit(1);
+  }
 
     const message = `
 🚨 *Domain Updated*
