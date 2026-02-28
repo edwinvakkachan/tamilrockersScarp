@@ -1,4 +1,6 @@
 import pool from "../db/pool.js";
+import { retry } from "../homeassistant/retryWrapper.js";
+import { triggerHomeAssistantWebhookWhenErrorOccurs } from "../homeassistant/homeAssistantWebhook.js";
 
 export async function publishMessage({
   message,
@@ -28,7 +30,7 @@ export async function publishMessage({
      [sourceApp, eventType, payload, target, scheduledAt]
    );
  } catch (error) {
-  console.error("Queue insert failed:", err.message);
+  console.error("Queue insert failed:",error);
         await retry(
     triggerHomeAssistantWebhookWhenErrorOccurs,
     { status: "error" },
