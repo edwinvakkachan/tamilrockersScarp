@@ -83,9 +83,9 @@ console.log(text);
 const hasLanguage = languageRegex.test(searchableContent);
 
 if (!hasLanguage) {
-  console.log("⚠ No language detected, allowing:", href);
   if (/\bkannada\b/i.test(searchableContent)) return;
   if (/\bkan\b/i.test(searchableContent)) return;
+  console.log("⚠ No language detected, allowing:", href);
 }
 
 
