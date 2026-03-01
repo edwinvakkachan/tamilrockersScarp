@@ -93,13 +93,13 @@ await log();
   5
 );
 
-    console.log('🥭🥭🥭🥭🥭🥭🥭🥭🥭')
-            await publishMessage({
-  message: "🥭🥭🥭🥭🥭🥭🥭🥭🥭"
-});
+
             await publishMessage({
   message: 'tramil rockers scraping completed successfully 💯'
 });
+
+await log();
+
   } catch (error) {
     console.error("Fatal error in main():");
     console.error(error);
