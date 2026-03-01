@@ -42,7 +42,7 @@ try {
     )
   `);
 } catch (error) {
-  console.error("DB insert error:", err.message);
+  console.error("DB insert error:", error);
           await retry(
     triggerHomeAssistantWebhookWhenErrorOccurs,
     { status: "error" },
@@ -69,7 +69,7 @@ export async function insertLinkIfNew(href) {
     await delay(300,true);
     return result.rowCount === 1; // true if new
   } catch (err) {
-    console.error("DB insertLinkIfNew:", err.message);
+    console.error("DB insertLinkIfNew:", err);
             await retry(
     triggerHomeAssistantWebhookWhenErrorOccurs,
     { status: "error" },
