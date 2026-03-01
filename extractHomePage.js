@@ -80,6 +80,15 @@ console.log(text);
   // Must contain allowed language
   if (!languageRegex.test(searchableContent)) return;
 
+const hasLanguage = languageRegex.test(searchableContent);
+
+if (!hasLanguage) {
+  console.log("⚠ No language detected, allowing:", href);
+  if (/\bkannada\b/i.test(searchableContent)) return;
+  if (/\bkan\b/i.test(searchableContent)) return;
+}
+
+
   links.add(href);
 });
   
