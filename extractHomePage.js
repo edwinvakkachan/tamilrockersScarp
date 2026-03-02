@@ -53,7 +53,6 @@ const prevTitle = $(element)
 
 const text = `${prevTitle} ${anchorText}`;
 
-console.log(text);
 
   // Must be topic page
   if (!lowerHref.includes("/forums/topic/")) return;
@@ -72,11 +71,8 @@ console.log(text);
      if (!/\bmalayalam\b/i.test(searchableContent))
    { 
     return;
-
    }
-  
   }
-  
   
   if (/\beng\b/i.test(searchableContent)) {
     if (!/\bmal\b/i.test(searchableContent)){
@@ -90,15 +86,27 @@ console.log(text);
   if (/\bchi\b/i.test(searchableContent)) return;
 
 
-  // Must contain allowed language
-  if (!languageRegex.test(searchableContent)) return;
+
 
 const hasLanguage = languageRegex.test(searchableContent);
 
 if (!hasLanguage) {
   if (/\bkannada\b/i.test(searchableContent)) return;
   if (/\bkan\b/i.test(searchableContent)) return;
-  console.log("⚠ No language detected, allowing:", href);
+  if (/\btelugu\b/i.test(searchableContent)) return;
+  console.log("⚠ No language detected, allowing ",href);
+
+}
+
+
+const hasheref = languageRegex.test(lowerHref);
+
+if (!hasheref) {
+  if (/\bkannada\b/i.test(lowerHref)) return;
+  if (/\bkan\b/i.test(lowerHref)) return;
+  if (/\btelugu\b/i.test(lowerHref)) return;
+  console.log("⚠ No language detected in lowerHref, allowing",href );
+
 }
 
 
@@ -107,11 +115,10 @@ if (!hasLanguage) {
   
     console.log(`\nTotal Found: ${links.size}`);
     await delay(2000,true);
- 
+console.log(links)
     return links;
 
   } catch (error) {
     console.error("Error:", error.message);
   }
 }
-
