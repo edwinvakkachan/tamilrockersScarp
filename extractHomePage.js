@@ -61,8 +61,9 @@ const text = `${prevTitle} ${anchorText}`;
   if (lowerHref.includes("predvd") || text.includes("predvd")) return;
 
   // Combine text + URL for single language check
-  const searchableContent = `${text} ${lowerHref}`;
-
+  const tobesearchableContent = `${text} ${lowerHref}`;
+const searchableContent = tobesearchableContent.replace(/-/g, " ");
+// console.log(searchableContent);
 
   // checking enlgish or not 
   
@@ -85,37 +86,20 @@ const text = `${prevTitle} ${anchorText}`;
 
   if (/\bchi\b/i.test(searchableContent)) return;
 
-
-
-
+  
 const hasLanguage = languageRegex.test(searchableContent);
 
 if (!hasLanguage) {
   if (/\bkannada\b/i.test(searchableContent)) return;
   if (/\bkan\b/i.test(searchableContent)) return;
   if (/\btelugu\b/i.test(searchableContent)) return;
-  console.log("⚠ No language detected, allowing ",href);
-
 }
-
-
-const hasheref = languageRegex.test(lowerHref);
-
-if (!hasheref) {
-  if (/\bkannada\b/i.test(lowerHref)) return;
-  if (/\bkan\b/i.test(lowerHref)) return;
-  if (/\btelugu\b/i.test(lowerHref)) return;
-  console.log("⚠ No language detected in lowerHref, allowing",href );
-
-}
-
 
   links.add(href);
 });
   
     console.log(`\nTotal Found: ${links.size}`);
     await delay(2000,true);
-console.log(links)
     return links;
 
   } catch (error) {
