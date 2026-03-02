@@ -67,10 +67,23 @@ console.log(text);
 
   // checking enlgish or not 
   
-  if (lowerHref.includes("english") || text.includes("english")) return;
+  if (lowerHref.includes("english") || text.includes("english")) {
+    
+     if (!/\bmalayalam\b/i.test(searchableContent))
+   { 
+    return;
+
+   }
+  
+  }
   
   
-  if (/\beng\b/i.test(searchableContent)) return;
+  if (/\beng\b/i.test(searchableContent)) {
+    if (!/\bmal\b/i.test(searchableContent)){
+
+      return;
+    }
+  } 
 
   // ignore chinese 
 
