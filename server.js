@@ -61,7 +61,7 @@ await log();
       continue;
     }
 
-    console.log("🆕 New link:", value);
+    console.log("🫛 🆕 New link:", value);
 //         await publishMessage({
 //   message: `🆕 New link: ${value}`
 // });
