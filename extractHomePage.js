@@ -57,13 +57,27 @@ const text = `${prevTitle} ${anchorText}`;
   // Must be topic page
   if (!lowerHref.includes("/forums/topic/")) return;
 
-  // Skip PreDVD (URL or title)
-  if (lowerHref.includes("predvd") || text.includes("predvd")) return;
+
 
   // Combine text + URL for single language check
   const tobesearchableContent = `${text} ${lowerHref}`;
 const searchableContent = tobesearchableContent.replace(/-/g, " ");
-// console.log(searchableContent);
+
+
+
+  // Skip PreDVD but not malayalam (URL or title)
+ if (searchableContent.includes("predvd")){
+    const isMalayalam =
+  /\bmalayalam\b/.test(searchableContent) ||
+  /\bmal\b/.test(searchableContent);
+
+if (!isMalayalam) {
+  return;
+}
+    };
+
+
+
 
   // checking enlgish or not 
   
