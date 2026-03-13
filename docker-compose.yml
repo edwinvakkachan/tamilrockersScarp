@@ -14,6 +14,9 @@ services:
       QBITPASS: ${QBITPASS}
       HA_WEBHOOK_URL: ${HA_WEBHOOK_URL} #triggering next app after complting current app tasks
       HA_WEBHOOKERROR_URL: ${HA_WEBHOOKERROR_URL}
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
 
 
 
