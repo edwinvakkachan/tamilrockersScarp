@@ -9,8 +9,8 @@ export async function log(message='⌚') {
 
 
         await publishMessage({
-  message: `🥭🥭🥭 ${time} 🥭🥭🥭`
+  message: `👩‍🚒👩‍🚒👩‍🚒 ${time} 👩‍🚒👩‍🚒👩‍🚒`
 });
 
-  console.log(`🥭🥭🥭🥭 ${time} 🥭🥭🥭🥭`);
+  console.log(`👩‍🚒👩‍🚒👩‍🚒👩‍🚒 ${time} 👩‍🚒👩‍🚒👩‍🚒👩‍🚒`);
 }
