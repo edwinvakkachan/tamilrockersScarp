@@ -100,6 +100,8 @@ await log();
 
 await log();
 
+process.exit(0)
+
   } catch (error) {
     console.error("Fatal error in main():");
     console.error(error);
