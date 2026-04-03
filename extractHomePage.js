@@ -5,12 +5,12 @@ import { delay } from "./delay.js";
 import { publishMessage } from "./queue/publishMessage.js";
 
 
-const BASE_URL = await getBaseUrl();
 
 
 
 export async function scrapeMalayalamLinks() {
   try {
+    const BASE_URL = await getBaseUrl();
 
 console.log(`🍷 current domain is: ${BASE_URL}`);
         await publishMessage({

@@ -1,6 +1,6 @@
 import pkg from "pg";
 const { Pool } = pkg;
-import 'dotenv/config';
+// import 'dotenv/config';
 import { delay } from "../delay.js";
 
 import pool from "../db/pool.js";

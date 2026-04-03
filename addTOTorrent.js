@@ -1,15 +1,15 @@
-import { initDB } from "./db/db.js";
+// import { initDB } from "./db/db.js";
 import { loginQB, addMagnet,moveTorrentToTop } from "./qbittorrent/qb.js";
-
+import pool from "./db/pool.js";
 import { delay } from "./delay.js";
 
 
 
 export async function addToTorrent() {
   try {
-    const db = await initDB();
+   
 
-    const result = await db.query(`
+    const result = await pool.query(`
       SELECT * FROM magnets
       WHERE created_at >= NOW() - INTERVAL '3 hours'
       ORDER BY created_at DESC

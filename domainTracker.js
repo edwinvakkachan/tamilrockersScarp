@@ -1,5 +1,5 @@
 import axios from "axios";
-import { initDB } from "./db/db.js";
+import pool from "./db/pool.js";
   // your existing DB connection
 
 
@@ -35,10 +35,9 @@ function extractDomain(url) {
 
 // Core Logic
 export async function checkDomain() {
-  const db = await initDB();
 let result;
 try {
-     result = await db.query(
+     result = await pool.query(
       "SELECT value FROM settings WHERE key = $1",
       ["current_domain"]
     );
@@ -74,7 +73,7 @@ try {
   if (newDomain !== currentDomain) {
 
   try {
-      await db.query(
+      await pool.query(
         "UPDATE settings SET value = $1, updated_at = CURRENT_TIMESTAMP WHERE key = $2",
         [newDomain, "current_domain"]
       );

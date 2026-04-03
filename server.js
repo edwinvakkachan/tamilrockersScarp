@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { extractPage } from "./extractMagnetLink/extractMagnetLink.js";
 import { scrapeMalayalamLinks } from "./extractHomePage.js";
 import { addToTorrent} from "./addTOTorrent.js";
@@ -8,6 +9,7 @@ import { insertLinkIfNew } from "./db/db.js";
 import { log } from "./timelog.js";
 import { retry } from "./homeassistant/retryWrapper.js";
 import { publishMessage } from "./queue/publishMessage.js";
+import { initDB } from "./db/db.js";
 
 
 
@@ -21,7 +23,9 @@ await log();
     await publishMessage({
   message: "🚀  tamilrockers scraping Process started"
 });
-    
+    await initDB();
+
+    console.log('db is ready');
 
    const result = await checkDomain();
 

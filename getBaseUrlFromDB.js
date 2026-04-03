@@ -1,13 +1,13 @@
-import { initDB } from "./db/db.js";
+import pool from "./db/pool.js";
 import { retry } from "./homeassistant/retryWrapper.js";
 import { triggerHomeAssistantWebhookWhenErrorOccurs } from "./homeassistant/homeAssistantWebhook.js";
 
 export async function getBaseUrl() {
-  const db = await initDB();
+  
 let result;
 
 try {
-     result = await db.query(
+     result = await pool.query(
       "SELECT value FROM settings WHERE key = $1",
       ["current_domain"]
     );

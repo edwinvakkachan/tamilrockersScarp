@@ -2,6 +2,8 @@ import axios from "axios";
 import { load } from "cheerio";
 import { saveMagnets } from "../db/saveMagnets.js";
 import { delay } from "../delay.js";
+import pool from "../db/pool.js";
+
 
 
 
@@ -45,6 +47,23 @@ export async function extractPage(movieUrl) {
       });
     });
     const magnetArray = results.map(r => r.magnet);
+
+
+// new logic added here 
+    if(magnetArray.length==0){
+      console.log('no magnet link found');
+try {
+  await pool.query(
+  "DELETE FROM processed_links WHERE href = $1",
+  [movieUrl]
+);
+} catch (error) {
+  console.error('error in deletion',error)
+}
+
+console.log("Href removed from database");
+
+    }
     
     console.log(
   `[${new Date().toLocaleString()}] magnet links are adding....`

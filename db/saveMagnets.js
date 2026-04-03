@@ -1,14 +1,15 @@
-import { initDB } from "./db.js";
+
 import { delay } from "../delay.js";
+import pool from "./pool.js";
 
 import { triggerHomeAssistantWebhookWhenErrorOccurs } from "../homeassistant/homeAssistantWebhook.js";
 import { retry } from "../homeassistant/retryWrapper.js";
 export async function saveMagnets(magnetLinks) {
-  const db = await initDB();
+  // const db = await initDB();
 
   for (const magnet of magnetLinks) {
     try {
-      await db.query(
+      await pool.query(
         `INSERT INTO magnets (magnet)
          VALUES ($1)
          ON CONFLICT (magnet) DO NOTHING`,
