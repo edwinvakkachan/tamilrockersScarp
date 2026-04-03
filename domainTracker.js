@@ -103,11 +103,15 @@ Time: ${new Date().toLocaleString()}
 });
 
     console.log("Domain updated in DB:", newDomain);
+
+    return true;
   } else {
 
             await publishMessage({
   message: "✔️ Domain unchanged."
 });
     console.log("✔️  Domain unchanged.");
+    return false;
   }
+
 }

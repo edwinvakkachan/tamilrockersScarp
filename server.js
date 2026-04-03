@@ -23,7 +23,7 @@ await log();
 });
     
 
-   await checkDomain();
+   const result = await checkDomain();
 
    await delay(2000)
 
@@ -48,7 +48,7 @@ await log();
     }
 
     
-    console.log(`it will take 5 minutes to complete `);
+    console.log(`💤💤💤 it will take 5 minutes to complete `);
 
 
 
@@ -60,11 +60,20 @@ await log();
       // console.log("⏩ Skipping already processed:", value);
       continue;
     }
-
-    console.log("🫛 🆕 New link:", value);
-        await publishMessage({
-  message: `🆕 🫛 New link: ${value}`
+    if(result){
+      console.log('♻️♻️♻️since domain changed, no logs will be displayed');
+       await publishMessage({
+message: `♻️♻️♻️ since domain changed, no logs will be displayed`
 });
+    }
+if(!result){
+
+  console.log("🫛 🆕 New link:", value);
+      await publishMessage({
+message: `🆕 🫛 New link: ${value}`
+});
+
+}
 
 
     await extractPage(value);
