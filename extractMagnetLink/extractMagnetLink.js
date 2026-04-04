@@ -50,7 +50,7 @@ export async function extractPage(movieUrl) {
 
 
 // new logic added here 
-    if(magnetArray.length==0){
+    if(magnetArray.length<=2){
       console.log('no magnet link found');
 try {
   await pool.query(
@@ -62,6 +62,7 @@ try {
 }
 
 console.log("Href removed from database");
+return
 
     }
     
