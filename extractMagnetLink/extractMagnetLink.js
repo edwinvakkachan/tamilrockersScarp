@@ -50,7 +50,7 @@ export async function extractPage(movieUrl) {
 
 
 // new logic added here 
-    if(magnetArray.length<=2){
+    if(magnetArray.length<=1){
       console.log('no magnet link found');
 try {
   await pool.query(
