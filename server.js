@@ -29,6 +29,13 @@ await log();
 
    const result = await checkDomain();
 
+    if(result){
+      console.log('♻️♻️♻️since domain changed, no logs will be displayed');
+       await publishMessage({
+message: `♻️♻️♻️ since domain changed, no logs will be displayed`
+});
+    }
+
    await delay(2000)
 
     const links = await scrapeMalayalamLinks();
@@ -64,12 +71,7 @@ await log();
       // console.log("⏩ Skipping already processed:", value);
       continue;
     }
-    if(result){
-      console.log('♻️♻️♻️since domain changed, no logs will be displayed');
-       await publishMessage({
-message: `♻️♻️♻️ since domain changed, no logs will be displayed`
-});
-    }
+
 if(!result){
 
   console.log("🫛 🆕 New link:", value);
