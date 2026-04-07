@@ -51,7 +51,7 @@ export async function extractPage(movieUrl) {
 
 // new logic added here 
     if(magnetArray.length<=1){
-      console.log('no magnet link found');
+      console.log('Total no of magnet link found is:',magnetArray.length);
 try {
   await pool.query(
   "DELETE FROM processed_links WHERE href = $1",
